@@ -52,22 +52,12 @@
             </b-form-checkbox-group>
           </b-form-group>
           <h3>Aktionen</h3>
-          <div>
-            <h4>Metadaten anzeigen</h4>
-            <b-form-checkbox value="permission" v-model="dispalymeta.permission" size="lg">Erlaubt</b-form-checkbox>
-            <div v-if="dispalymeta.permission" class="alert">Hier kommt eine Komponente hin!</div>
-          </div>
-          <div>
-            <h4>Anzeigen</h4>
-            <b-form-checkbox value="permission" v-model="read.permission" size="lg">Erlaubt</b-form-checkbox>
-            <div v-if="read.permission" class="alert">Hier kommt eine Komponente hin!</div>
-          </div>
-          <div>
-            <h4>Abspielen</h4>
-            <b-form-checkbox value="permission" v-model="run.permission" size="lg">Erlaubt</b-form-checkbox>
-            <b-alert v-if="run.permission" show>Hier kommt eine Komponente hin!</b-alert>
-          </div>
-          <b-button type="submit" variant="primary">Übernehmen</b-button>
+          <MetaActionComponent :dispalymeta="dispalymeta"/>
+          <ReadActionComponent :read="read"/>
+          <RunActionComponent :run="run"/>
+          <LendActionComponent :lend="lend"/>
+          <DownloadActionComponent :download="download"/>
+          <PrintActionComponent :print="print"/>
         </b-form>
       </b-col>
       <b-col cols="6">
@@ -83,6 +73,12 @@
 <script>
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
+import PrintActionComponent from "@/components/PrintActionComponent";
+import DownloadActionComponent from "@/components/DownloadActionComponent";
+import LendActionComponent from "@/components/LendActionComponent";
+import RunActionComponent from "@/components/RunActionComponent";
+import ReadActionComponent from "@/components/ReadActionComponent";
+import MetaActionComponent from "@/components/MetaActionComponent";
 
 export default {
   data() {
@@ -102,16 +98,23 @@ export default {
       },
       run: {
         permission: false,
+      },
+      lend: {
+        permission: false,
+      },
+      download: {
+        permission: false,
+      },
+      print: {
+        permission: false,
       }
     }
   },
-  methods: {
-    baseSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.librml))
-    }
-  },
+  methods: {},
   name: 'App',
-  components: {VueJsonPretty}
+  components: {
+    MetaActionComponent,
+    ReadActionComponent,
+    RunActionComponent, LendActionComponent, DownloadActionComponent, PrintActionComponent, VueJsonPretty}
 }
 </script>
