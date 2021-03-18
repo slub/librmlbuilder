@@ -46,7 +46,7 @@
                           description="Nutzungshinweise. Eine URL zu allgemeinen Hinweisen zur Nutzung von Objekten."
                           label="Nutzungshinweise"
                           label-for="guide-input">
-              <b-form-input id="tenant-input" v-model="librml.usageguide" placeholder="http://slub-dresden.de/usage"
+              <b-form-input id="guide-input" v-model="librml.usageguide" placeholder="http://slub-dresden.de/usage"
                             required></b-form-input>
             </b-form-group>
             <b-form-checkbox v-model="librml.mention">Namensnennung</b-form-checkbox>
@@ -54,6 +54,11 @@
             <b-form-checkbox v-model="librml.copyright">Urheberrechte</b-form-checkbox>
           </b-form>
         </div>
+        <ActionComponent v-for="action in librml.actions" :action="action" :key="action.type"></ActionComponent>
+        <div class="shadow-sm m-2 p-3 mb-5 bg-white rounded">
+          <b-button type="button" @click="addAction()">Aktion hinzufügen</b-button>
+        </div>
+
       </b-col>
       <b-col cols="6">
         <vue-json-pretty
@@ -68,6 +73,8 @@
 <script>
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
+import {Action} from "@/librml/librml";
+import ActionComponent from "@/components/ActionComponent";
 
 export default {
   data() {
@@ -81,9 +88,13 @@ export default {
     updateOtherIDs() {
       this.librml.relatedids = this.otherids.split(',').map(item => item.trim());
     },
+    addAction() {
+      this.librml.actions.push(new Action())
+    }
   },
   name: 'App',
   components: {
+    ActionComponent,
     VueJsonPretty
   }
 }

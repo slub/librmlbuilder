@@ -15,10 +15,8 @@ class Action extends Object {
     restrictions = [];
 }
 
-class DateRestriction {
-    type = 'date';
-    todate = new Date();
-    fromdate = new Date();
+class Restriction extends Object {
+    type = '';
 }
 
-export {LibRML, Action, DateRestriction}
+export {LibRML, Action, Restriction}
