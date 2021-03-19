@@ -1,6 +1,6 @@
 <template>
   <div class="border border-primary border-1px solid m-2 p-2 rounded">
-    <h6>{{ restriction.type }}</h6>
+    <h6><b-icon icon="x-circle-fill" @click="deleteRestriction(index)"></b-icon> {{ restriction.type }}</h6>
     <b-select v-model="restriction.type" :options="restrictionOptions" v-on:change="resetRestriction()"></b-select>
     <DateRestrictionComponent v-if="restriction.type=='date'" :restriction="restriction"></DateRestrictionComponent>
     <AgeRestrictionComponent v-if="restriction.type=='age'" :restriction="restriction"></AgeRestrictionComponent>
@@ -16,7 +16,12 @@ export default {
   name: "RestrictionComponent",
   components: {DateRestrictionComponent, AgeRestrictionComponent},
   props: {
-    restriction: {},
+    restriction: {
+      type: Object
+    },
+    index: {
+      type: Number
+    }
   },
   data() {
     return {
@@ -29,6 +34,9 @@ export default {
   methods: {
     resetRestriction() {
       this.restriction = new Restriction();
+    },
+    deleteRestriction(index) {
+      this.$delete(this.$parent.action.restrictions, index)
     }
   }
 }

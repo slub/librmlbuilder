@@ -1,12 +1,16 @@
 <template>
-  <div class="shadow-sm m-2 p-3 mb-5 bg-white rounded">
-    <h3>{{ action.type }}</h3>
+  <div class="border border-primary border-1px solid m-2 p-2 rounded">
+    <h3>
+      <b-icon icon="x-circle-fill" @click="deleteAction(index)"></b-icon>
+      {{ action.type }}
+    </h3>
     <b-form-select v-model="action.type" :options="actionOptions"></b-form-select>
     <b-form-checkbox v-model="action.permission" size="lg">Erlaubt</b-form-checkbox>
-    <div class="border-sm secondary m-2 p-2 rounded" v-if="action.permission">
+    <div v-if="action.permission" class="border-sm secondary m-2 p-2 rounded">
       <h4>Einschränkungen</h4>
       <div v-if="action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine Einschränkungen.</div>
-      <RestrictionComponent v-for="restriction in action.restrictions" :restriction=restriction :key="restriction.type"></RestrictionComponent>
+      <RestrictionComponent v-for="(restriction, index) in action.restrictions" :key="restriction.type"
+                            :restriction="restriction" :index="index"></RestrictionComponent>
       <b-button type="button" @click="addRestriction()">Einschränkug hinzufügen</b-button>
     </div>
   </div>
@@ -20,9 +24,14 @@ export default {
   name: 'ActionComponent',
   components: {RestrictionComponent},
   props: {
-    action: {}
+    action: {
+      type: Object
+    },
+    index: {
+      type: Number
+    }
   },
-  data () {
+  data() {
     return {
       actionOptions: [
         {value: 'meta', text: 'Metadaten anzeigen '},
@@ -44,6 +53,9 @@ export default {
   methods: {
     addRestriction() {
       this.action.restrictions.push(new Restriction())
+    },
+    deleteAction(index) {
+      this.$delete(this.$parent.librml.actions, index)
     }
   }
 }

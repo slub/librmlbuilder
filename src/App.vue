@@ -15,25 +15,33 @@
               </b-nav-item>
             </b-navbar-nav>
           </b-collapse>
-          <b-navbar-nav class="ml-auto">
-            <b-button>Neues LibRML starten!</b-button>
+          <b-navbar-nav class="ml-auto p-1">
+            <b-button @click="load18()">Lesen ab 18 laden</b-button>
+          </b-navbar-nav>
+          <b-navbar-nav class="ml-auto p-1">
+            <b-button @click="loadNew()">Neues LibRML starten!</b-button>
           </b-navbar-nav>
         </b-navbar>
       </b-col>
     </b-row>
     <b-row>
       <b-col cols="6">
-        <div class="shadow-sm m-2 p-3 mb-5 bg-white rounded">
+        <div class="border border-primary border-1px solid m-2 p-2 rounded">
           <b-form>
             <h3>Angaben zum Objekt</h3>
             <b-form-group id="id-group" description="Die eindeutige ID des Objektes" label="ID" label-for="id-input">
               <b-form-input id="id-input" v-model="librml.id" placeholder="1234567890-abd" required></b-form-input>
             </b-form-group>
-            <b-form-group id="otherid-group" description="Andere IDs dieses Objektes, mit Komma trennen."
-                          label="Andere IDs"
-                          label-for="other-id-input">
-              <b-form-input id="other-id-input" v-model="otherids" placeholder="123456789-aaa, 123456789-bbb"
-                            @change="updateOtherIDs()"></b-form-input>
+            <b-form-group id="otherid-group" label="Andere IDs" label-for="oid">
+              <div v-for="(oid, index) in this.otherids" :key="index">
+                <b-input-group class="mb-2">
+                  <b-form-input v-bind:id="'oid-' + index" v-model="oid.value" @change="updateOids()"></b-form-input>
+                  <b-input-group-append is-text>
+                    <b-icon icon="x-circle-fill" @click="deleteOID(index)"></b-icon>
+                  </b-input-group-append>
+                </b-input-group>
+              </div>
+              <b-button class="m-1" @click="addOid()">Andere ID hinzufügen</b-button>
             </b-form-group>
             <b-form-group id="tenant-group"
                           description="Verwalter des Objektes, hier die ID der Institution, auf die die Nutzungsrechte angewandt werden können."
@@ -53,10 +61,10 @@
             <b-form-checkbox v-model="librml.sharealike">Weitergabe unter gleichen Bedingungen</b-form-checkbox>
             <b-form-checkbox v-model="librml.copyright">Urheberrechte</b-form-checkbox>
           </b-form>
-        </div>
-        <ActionComponent v-for="action in librml.actions" :action="action" :key="action.type"></ActionComponent>
-        <div class="shadow-sm m-2 p-3 mb-5 bg-white rounded">
-          <b-button type="button" @click="addAction()">Aktion hinzufügen</b-button>
+          <ActionComponent v-for="(action, index) in librml.actions" :key="index" :action="action" :index="index"></ActionComponent>
+          <div class=" m-2 p-3">
+            <b-button type="button" @click="addAction()">Aktion hinzufügen</b-button>
+          </div>
         </div>
 
       </b-col>
@@ -73,23 +81,47 @@
 <script>
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
-import {Action} from "@/librml/librml";
+import {Action, LibRML} from "@/librml/librml";
 import ActionComponent from "@/components/ActionComponent";
 
 export default {
   data() {
     return {
       librml: this.$root.librml,
-      otherids: '',
+      otherids: [],
       metarights: [],
     }
   },
   methods: {
-    updateOtherIDs() {
-      this.librml.relatedids = this.otherids.split(',').map(item => item.trim());
+    updateOids() {
+      this.librml.relatedids = []
+      for (let oid of this.otherids) {
+        this.librml.relatedids.push(oid.value)
+      }
     },
     addAction() {
       this.librml.actions.push(new Action())
+    },
+    load18() {
+      this.librml = JSON.parse('{"id":"demo-lesenab18","relatedids":["demo-lesenab18-slub","demo-lesenab18-slub2"],"tenant":"http://www.slub-dresden.de","usageguide":"http://www.slub-dresden.de/usage","mention":false,"sharealike":true,"copyright":true,"actions":[{"type":"read","permission":true,"restrictions":[{"type":"date","fromdate":"2021-03-20"},{"type":"age","minage":"18"}]}]}');
+      this.updateRIDs()
+    },
+    loadNew() {
+      this.librml = new LibRML()
+      this.updateRIDs()
+    },
+    addOid() {
+      this.otherids.push({value: ''})
+    },
+    deleteOID(index) {
+      this.$delete(this.otherids, index)
+      this.updateOids()
+    },
+    updateRIDs() {
+      this.otherids = []
+      for (let rid of this.librml.relatedids) {
+        this.otherids.push({value: rid});
+      }
     }
   },
   name: 'App',
