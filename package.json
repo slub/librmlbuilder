@@ -14,7 +14,8 @@
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "vue": "^2.6.11",
-    "vue-json-pretty": "^1.7.1"
+    "vue-json-pretty": "^1.7.1",
+    "vue-json-tree-view": "^2.1.6"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",

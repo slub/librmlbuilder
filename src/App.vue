@@ -41,7 +41,7 @@
                   </b-input-group-append>
                 </b-input-group>
               </div>
-              <b-button class="m-1" @click="addOid()">Andere ID hinzufügen</b-button>
+              <b-button class="m-1" @click="addOID()">Andere ID hinzufügen</b-button>
             </b-form-group>
             <b-form-group id="tenant-group"
                           description="Verwalter des Objektes, hier die ID der Institution, auf die die Nutzungsrechte angewandt werden können."
@@ -61,7 +61,8 @@
             <b-form-checkbox v-model="librml.sharealike">Weitergabe unter gleichen Bedingungen</b-form-checkbox>
             <b-form-checkbox v-model="librml.copyright">Urheberrechte</b-form-checkbox>
           </b-form>
-          <ActionComponent v-for="(action, index) in librml.actions" :key="index" :action="action" :index="index"></ActionComponent>
+          <ActionComponent v-for="(action, index) in librml.actions" :key="index" :action="action"
+                           :index="index"></ActionComponent>
           <div class=" m-2 p-3">
             <b-button type="button" @click="addAction()">Aktion hinzufügen</b-button>
           </div>
@@ -69,25 +70,22 @@
 
       </b-col>
       <b-col cols="6">
-        <vue-json-pretty
-            :data=this.librml
-            :path="'res'">
-        </vue-json-pretty>
+        <vue-json-pretty :data=this.librml></vue-json-pretty>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 import {Action, LibRML} from "@/librml/librml";
 import ActionComponent from "@/components/ActionComponent";
+import VueJsonPretty from 'vue-json-pretty'
 
 export default {
   data() {
     return {
-      librml: this.$root.librml,
+      librml: new LibRML(),
       otherids: [],
       metarights: [],
     }
@@ -110,7 +108,7 @@ export default {
       this.librml = new LibRML()
       this.updateRIDs()
     },
-    addOid() {
+    addOID() {
       this.otherids.push({value: ''})
     },
     deleteOID(index) {

@@ -17,6 +17,11 @@ class Action extends Object {
 
 class Restriction extends Object {
     type = '';
+
+    constructor(type) {
+        super();
+        this.type = type;
+    }
 }
 
 export {LibRML, Action, Restriction}

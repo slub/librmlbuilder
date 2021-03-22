@@ -9,9 +9,11 @@
     <div v-if="action.permission" class="border-sm secondary m-2 p-2 rounded">
       <h4>Einschränkungen</h4>
       <div v-if="action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine Einschränkungen.</div>
-      <RestrictionComponent v-for="(restriction, index) in action.restrictions" :key="restriction.type"
-                            :restriction="restriction" :index="index"></RestrictionComponent>
-      <b-button type="button" @click="addRestriction()">Einschränkug hinzufügen</b-button>
+      <RestrictionComponent v-for="(restriction, index) in action.restrictions" v-bind:id="'restriction-' + index"
+                            :key="index"
+                            :index="index" :restriction="restriction"></RestrictionComponent>
+      <b-form-select v-model="selectedRestriction" :options="restrictionOptions"
+                     @input="addRestriction(selectedRestriction)"></b-form-select>
     </div>
   </div>
 </template>
@@ -34,6 +36,7 @@ export default {
   data() {
     return {
       actionOptions: [
+        {value: null, text: 'Aktion auswählen'},
         {value: 'meta', text: 'Metadaten anzeigen '},
         {value: 'read', text: 'Lesen/Anzeigen'},
         {value: 'run', text: 'Ausführen'},
@@ -47,12 +50,25 @@ export default {
         {value: 'archive', text: 'Archivieren'},
         {value: 'index', text: 'In den Katalog aufnehmen'},
         {value: 'move', text: 'In Datenbanken bewegen'},
-      ]
+      ],
+      restrictionOptions: [
+        {value: null, text: 'Eine neue Einschränkung hinzufügen'},
+        {value: 'date', text: 'Zeit'},
+        {value: 'age', text: 'Alter'},
+        {value: 'duration', text: 'Dauer'},
+        {value: 'count', text: 'Anzahl'},
+        {value: 'concurrent', text: 'Gleichzeitige Ausführung'},
+        {value: 'commercialuse', text: 'Kommerzielle Verwendung'},
+        {value: 'agreement', text: 'Spezielle Zustimmung'},
+        {value: 'group', text: 'Nutzergruppe'},
+      ],
+      selectedRestriction: null,
     }
   },
   methods: {
-    addRestriction() {
-      this.action.restrictions.push(new Restriction())
+    addRestriction(res) {
+      if (res)
+        this.action.restrictions.push(new Restriction(res))
     },
     deleteAction(index) {
       this.$delete(this.$parent.librml.actions, index)

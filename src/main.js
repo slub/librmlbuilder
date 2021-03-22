@@ -9,20 +9,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import App from './App.vue'
-import {LibRML} from "@/librml/librml";
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
-var librml = new LibRML()
-
 var vm = new Vue({
     render: h => h(App),
-    data: {
-        librml: librml,
-    },
 })
 
 vm.$mount('#app')
