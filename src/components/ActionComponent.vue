@@ -42,6 +42,7 @@ export default {
         {value: 'run', text: 'Ausführen'},
         {value: 'lend', text: 'Leihen'},
         {value: 'download', text: 'Herunterladen'},
+        {value: 'print', text: 'Drucken'},
         {value: 'reproduce', text: 'Reproduzieren'},
         {value: 'modify', text: 'Ändern'},
         {value: 'reuse', text: 'Wiederverwenden'},
@@ -61,6 +62,9 @@ export default {
         {value: 'commercialuse', text: 'Kommerzielle Verwendung'},
         {value: 'agreement', text: 'Spezielle Zustimmung'},
         {value: 'group', text: 'Nutzergruppe'},
+        {value: 'quality', text: 'Qualität'},
+        {value: 'watermark', text: 'Wasserzeichen'},
+        {value: 'parts', text: 'Teile des Werkes'},
       ],
       selectedRestriction: null,
     }

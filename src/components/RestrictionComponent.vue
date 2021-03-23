@@ -14,9 +14,15 @@
     <CommercialRestrictionComponent v-if="restriction.type=='commercialuse'"
                                     :restriction="restriction"></CommercialRestrictionComponent>
     <AgreementRestrictionComponent v-if="restriction.type=='agreement'"
-                                    :restriction="restriction"></AgreementRestrictionComponent>
+                                   :restriction="restriction"></AgreementRestrictionComponent>
     <GroupRestrictionComponent v-if="restriction.type=='group'"
-                                    :restriction="restriction"></GroupRestrictionComponent>
+                               :restriction="restriction"></GroupRestrictionComponent>
+    <QualityRestrictionComponent v-if="restriction.type=='quality'"
+                                 :restriction="restriction"></QualityRestrictionComponent>
+    <WatermarkRestrictionComponent v-if="restriction.type=='watermark'"
+                                   :restriction="restriction"></WatermarkRestrictionComponent>
+    <PartsRestrictionComponent v-if="restriction.type=='parts'"
+                                   :restriction="restriction"></PartsRestrictionComponent>
   </div>
 </template>
 
@@ -29,6 +35,9 @@ import ConcurrentRestrictionComponent from "@/components/ConcurrentRestrictionCo
 import CommercialRestrictionComponent from "@/components/CommercialRestrictionComponent";
 import AgreementRestrictionComponent from "@/components/AgreementRestrictionComponent";
 import GroupRestrictionComponent from "@/components/GroupRestrictionComponent";
+import QualityRestrictionComponent from "@/components/QualityRestrictionComponent";
+import WatermarkRestrictionComponent from "@/components/WatermarkRestrictionComponent";
+import PartsRestrictionComponent from "@/components/PartsRestrictionComponent";
 
 export default {
   name: "RestrictionComponent",
@@ -40,7 +49,10 @@ export default {
     ConcurrentRestrictionComponent,
     CommercialRestrictionComponent,
     AgreementRestrictionComponent,
-    GroupRestrictionComponent
+    GroupRestrictionComponent,
+    QualityRestrictionComponent,
+    WatermarkRestrictionComponent,
+    PartsRestrictionComponent
   },
   props: {
     restriction: {
