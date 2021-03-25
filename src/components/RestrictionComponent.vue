@@ -23,6 +23,8 @@
                                    :restriction="restriction"></WatermarkRestrictionComponent>
     <PartsRestrictionComponent v-if="restriction.type=='parts'"
                                    :restriction="restriction"></PartsRestrictionComponent>
+    <LocationRestrictionComponent v-if="restriction.type=='location'"
+                                   :restriction="restriction"></LocationRestrictionComponent>
   </div>
 </template>
 
@@ -38,6 +40,7 @@ import GroupRestrictionComponent from "@/components/GroupRestrictionComponent";
 import QualityRestrictionComponent from "@/components/QualityRestrictionComponent";
 import WatermarkRestrictionComponent from "@/components/WatermarkRestrictionComponent";
 import PartsRestrictionComponent from "@/components/PartsRestrictionComponent";
+import LocationRestrictionComponent from "@/components/LocationRestrictionComponent";
 
 export default {
   name: "RestrictionComponent",
@@ -52,7 +55,8 @@ export default {
     GroupRestrictionComponent,
     QualityRestrictionComponent,
     WatermarkRestrictionComponent,
-    PartsRestrictionComponent
+    PartsRestrictionComponent,
+    LocationRestrictionComponent
   },
   props: {
     restriction: {

@@ -65,6 +65,7 @@ export default {
         {value: 'quality', text: 'Qualität'},
         {value: 'watermark', text: 'Wasserzeichen'},
         {value: 'parts', text: 'Teile des Werkes'},
+        {value: 'location', text: 'Ortsbeschränkung'},
       ],
       selectedRestriction: null,
     }

@@ -16,7 +16,13 @@
             </b-navbar-nav>
           </b-collapse>
           <b-navbar-nav class="ml-auto p-1">
-            <b-button @click="load18()">Lesen ab 18 laden</b-button>
+            <b-dropdown id="loadlocal" text="LibRMLs laden">
+              <b-dropdown-item v-for="(item, index) in this.persistedLibRMLs" :key="index" @click="loadLocal(index)">
+                {{
+                  item.name
+                }}
+              </b-dropdown-item>
+            </b-dropdown>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto p-1">
             <b-button @click="loadNew()">Neues LibRML starten!</b-button>
@@ -29,8 +35,13 @@
         <div class="border border-primary border-1px solid m-2 p-2 rounded">
           <b-form>
             <h3>Angaben zum Objekt</h3>
-            <b-form-group id="id-group" description="Die eindeutige ID des Objektes" label="ID" label-for="id-input">
-              <b-form-input id="id-input" v-model="librml.id" placeholder="1234567890-abd" required></b-form-input>
+            <b-form-group>
+              <b-input-group id="id-group" description="Die eindeutige ID des Objektes" label="ID" label-for="id-input">
+                <b-form-input id="id-input" v-model="librml.id" placeholder="1234567890-abd" required></b-form-input>
+                <b-input-group-append is-text>
+                  <b-icon icon="file-arrow-down-fill" @click="saveLocal()"></b-icon>
+                </b-input-group-append>
+              </b-input-group>
             </b-form-group>
             <b-form-group id="otherid-group" label="Andere IDs" label-for="oid">
               <div v-for="(oid, index) in this.otherids" :key="index">
@@ -88,6 +99,7 @@ export default {
       librml: new LibRML(),
       otherids: [],
       metarights: [],
+      persistedLibRMLs: [],
     }
   },
   methods: {
@@ -99,10 +111,6 @@ export default {
     },
     addAction() {
       this.librml.actions.push(new Action())
-    },
-    load18() {
-      this.librml = JSON.parse('{"id":"demo-lesenab18","relatedids":["demo-lesenab18-slub","demo-lesenab18-slub2"],"tenant":"http://www.slub-dresden.de","usageguide":"http://www.slub-dresden.de/usage","mention":false,"sharealike":true,"copyright":true,"actions":[{"type":"read","permission":true,"restrictions":[{"type":"date","fromdate":"2021-03-20"},{"type":"age","minage":"18"}]}]}');
-      this.updateRIDs()
     },
     loadNew() {
       this.librml = new LibRML()
@@ -120,12 +128,25 @@ export default {
       for (let rid of this.librml.relatedids) {
         this.otherids.push({value: rid});
       }
+    },
+    saveLocal() {
+      this.persistedLibRMLs.push({name: this.librml.id, librml: this.librml})
+      localStorage.setItem('persistedLibRMLs', JSON.stringify(this.persistedLibRMLs))
+    },
+    loadLocal(index) {
+      this.librml = this.persistedLibRMLs[index].librml
+      this.updateRIDs()
     }
   },
   name: 'App',
   components: {
     ActionComponent,
     VueJsonPretty
+  },
+  mounted() {
+    if (localStorage.getItem('persistedLibRMLs')) {
+      this.persistedLibRMLs = JSON.parse(localStorage.getItem('persistedLibRMLs'))
+    }
   }
 }
 </script>
