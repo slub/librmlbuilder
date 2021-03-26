@@ -2,10 +2,10 @@
   <div class="border border-primary border-1px solid m-2 p-2 rounded">
     <h3>
       <b-icon class="pr-2" icon="x-circle" variant="danger" @click="deleteAction(index)"></b-icon>
-      <b-icon v-b-modal.selCopy class="pr-2" icon="arrow-down-up"></b-icon>
+      <b-icon v-b-modal="'copymodal-' + index" class="pr-2" icon="arrow-down-up"></b-icon>
       {{ actionName }}
     </h3>
-    <b-modal id="selCopy" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Aktion kopieren"
+    <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Aktion kopieren"
              @ok="copySelectedActions()">
       <p size="small">Die Einschränkungen auf folgende Aktionen kopieren. Bestehende Aktionen werden überschrieben,
         fehlende neu angelegt.</p>
