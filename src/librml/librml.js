@@ -13,6 +13,11 @@ class Action extends Object {
     type = '';
     permission = false;
     restrictions = [];
+
+    constructor(type = '') {
+        super();
+        this.type = type;
+    }
 }
 
 class Restriction extends Object {

@@ -1,7 +1,7 @@
 <template>
   <div class="border border-primary border-1px solid m-2 p-2 rounded">
     <h6>
-      <b-icon icon="x-circle-fill" @click="deleteRestriction(index)"></b-icon>
+      <b-icon class="pr-1" icon="x-circle" variant="danger" @click="deleteRestriction(index)"></b-icon>
       {{ restrictionName }}
     </h6>
     <DateRestrictionComponent v-if="restriction.type=='date'" :restriction="restriction"></DateRestrictionComponent>
@@ -22,9 +22,9 @@
     <WatermarkRestrictionComponent v-if="restriction.type=='watermark'"
                                    :restriction="restriction"></WatermarkRestrictionComponent>
     <PartsRestrictionComponent v-if="restriction.type=='parts'"
-                                   :restriction="restriction"></PartsRestrictionComponent>
+                               :restriction="restriction"></PartsRestrictionComponent>
     <LocationRestrictionComponent v-if="restriction.type=='location'"
-                                   :restriction="restriction"></LocationRestrictionComponent>
+                                  :restriction="restriction"></LocationRestrictionComponent>
   </div>
 </template>
 

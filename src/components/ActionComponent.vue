@@ -1,11 +1,23 @@
 <template>
   <div class="border border-primary border-1px solid m-2 p-2 rounded">
     <h3>
-      <b-icon icon="x-circle-fill" @click="deleteAction(index)"></b-icon>
-      {{ action.type }}
+      <b-icon class="pr-2" icon="x-circle" variant="danger" @click="deleteAction(index)"></b-icon>
+      <b-icon v-b-modal.selCopy class="pr-2" icon="arrow-down-up"></b-icon>
+      {{ actionName }}
     </h3>
+    <b-modal id="selCopy" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Aktion kopieren"
+             @ok="copySelectedActions()">
+      <p size="small">Die Einschränkungen auf folgende Aktionen kopieren. Bestehende Aktionen werden überschrieben,
+        fehlende neu angelegt.</p>
+      <b-form-checkbox-group v-model="selectedCopys" stacked>
+        <b-form-checkbox v-for="(item, index) in actionOptions" :key="index" :value="item.value">{{
+            item.text
+          }}
+        </b-form-checkbox>
+      </b-form-checkbox-group>
+    </b-modal>
     <b-form-select v-model="action.type" :options="actionOptions"></b-form-select>
-    <b-form-checkbox v-model="action.permission" size="lg">Erlaubt</b-form-checkbox>
+    <b-form-checkbox v-model="action.permission" size="lg" switch>Erlaubt</b-form-checkbox>
     <div v-if="action.permission" class="border-sm secondary m-2 p-2 rounded">
       <h4>Einschränkungen</h4>
       <div v-if="action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine Einschränkungen.</div>
@@ -19,7 +31,7 @@
 </template>
 
 <script>
-import {Restriction} from "@/librml/librml";
+import {Action, Restriction} from "@/librml/librml";
 import RestrictionComponent from "@/components/RestrictionComponent";
 
 export default {
@@ -36,7 +48,6 @@ export default {
   data() {
     return {
       actionOptions: [
-        {value: null, text: 'Aktion auswählen'},
         {value: 'meta', text: 'Metadaten anzeigen '},
         {value: 'read', text: 'Lesen/Anzeigen'},
         {value: 'run', text: 'Ausführen'},
@@ -68,6 +79,7 @@ export default {
         {value: 'location', text: 'Ortsbeschränkung'},
       ],
       selectedRestriction: null,
+      selectedCopys: [],
     }
   },
   methods: {
@@ -77,6 +89,27 @@ export default {
     },
     deleteAction(index) {
       this.$delete(this.$parent.librml.actions, index)
+    },
+    copySelectedActions() {
+      let restrictions = JSON.stringify(this.action.restrictions)
+      for (let action of this.selectedCopys) {
+        let newAction = new Action(action);
+        newAction.restrictions = JSON.parse(restrictions)
+        newAction.permission = true
+        this.$parent.librml.actions.push(newAction)
+      }
+    }
+  },
+  computed: {
+    actionName: function () {
+      var ret = "Unspezifische Aktion / ungültig"
+      var type = this.action.type
+      var atext = this.actionOptions.filter(obj => {
+        return obj.value == type;
+      });
+      if (atext.length > 0)
+        ret = atext[0].text;
+      return ret
     }
   }
 }

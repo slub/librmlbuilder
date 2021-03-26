@@ -18,9 +18,7 @@
           <b-navbar-nav class="ml-auto p-1">
             <b-dropdown id="loadlocal" text="LibRMLs laden">
               <b-dropdown-item v-for="(item, index) in this.persistedLibRMLs" :key="index" @click="loadLocal(index)">
-                {{
-                  item.name
-                }}
+                {{ item.name }}
               </b-dropdown-item>
             </b-dropdown>
           </b-navbar-nav>
