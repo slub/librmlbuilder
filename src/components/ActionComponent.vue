@@ -6,9 +6,8 @@
       {{ actionName }}
     </h3>
     <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Aktion kopieren"
-             @ok="copySelectedActions()">
-      <p size="small">Die Einschränkungen auf folgende Aktionen kopieren. Bestehende Aktionen werden überschrieben,
-        fehlende neu angelegt.</p>
+             @hide="resetSelectedActions()" @ok="copySelectedActions()">
+      <p size="small">Die Einschränkungen auf folgende Aktionen kopieren. Die Aktionen werden alle neu angelegt! Dabei verdoppeln sich evtl. bereits bestrehende Aktionen des gleichen Typs.</p>
       <b-form-checkbox-group v-model="selectedCopys" stacked>
         <b-form-checkbox v-for="(item, index) in actionOptions" :key="index" :value="item.value">{{
             item.text
@@ -98,6 +97,9 @@ export default {
         newAction.permission = true
         this.$parent.librml.actions.push(newAction)
       }
+    },
+    resetSelectedActions() {
+      this.selectedCopys = []
     }
   },
   computed: {

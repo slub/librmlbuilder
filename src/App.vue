@@ -28,7 +28,7 @@
           <b-navbar-nav class="ml-auto p-1">
             <b-button v-b-modal.json-input>JSON ein-/ausgeben</b-button>
             <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:">
-              <b-form-textarea id="json-input-field" v-model="librmlText" max-rows="20" rows="10" size="sm">
+              <b-form-textarea id="json-input-field" v-model.lazy="librmlText" max-rows="20" rows="10" size="sm">
               </b-form-textarea>
             </b-modal>
           </b-navbar-nav>
