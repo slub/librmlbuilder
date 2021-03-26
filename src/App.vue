@@ -27,6 +27,13 @@
           <b-navbar-nav class="ml-auto p-1">
             <b-button @click="loadNew()">Neues LibRML starten!</b-button>
           </b-navbar-nav>
+          <b-navbar-nav class="ml-auto p-1">
+            <b-button v-b-modal.json-input>JSON ein-/ausgeben</b-button>
+            <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:">
+              <b-form-textarea id="json-input-field" v-model="librmlText" max-rows="20" rows="10" size="sm">
+              </b-form-textarea>
+            </b-modal>
+          </b-navbar-nav>
         </b-navbar>
       </b-col>
     </b-row>
@@ -97,6 +104,7 @@ export default {
   data() {
     return {
       librml: new LibRML(),
+      librmlText: '',
       otherids: [],
       metarights: [],
       persistedLibRMLs: [],
@@ -146,6 +154,20 @@ export default {
   mounted() {
     if (localStorage.getItem('persistedLibRMLs')) {
       this.persistedLibRMLs = JSON.parse(localStorage.getItem('persistedLibRMLs'))
+    }
+    this.librmlText = JSON.stringify(this.librml, null, 2)
+  },
+  watch: {
+    librmlText: function (newValue) {
+      try {
+        let newLibRML = JSON.parse(newValue);
+        this.librml = newLibRML;
+      } catch (err) {
+        console.log("seems to be invalid json: " + err);
+      }
+    },
+    librml: function (newValue) {
+      this.librmlText = JSON.stringify(newValue, null, 2)
     }
   }
 }
