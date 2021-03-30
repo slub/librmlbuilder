@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-primary border-1px solid m-2 p-2 rounded">
+  <div class="border border-dark border-1px solid mt-1 mb-1 p-2 rounded">
     <h6>
       <b-icon class="pr-1" icon="x-circle" variant="danger" @click="deleteRestriction(index)"></b-icon>
       {{ restrictionName }}
@@ -76,13 +76,11 @@ export default {
   },
   computed: {
     restrictionName: function () {
-      var ret = 'Fehler: Unbekannte Restriktion!';
-      var type = this.restriction.type;
-      var rtext = this.$parent.restrictionOptions.filter(obj => {
-        return obj.value == type;
-      });
-      if (rtext.length > 0)
-        ret = rtext[0].text;
+      let ret = 'Fehler: Unbekannte Restriktion!';
+      let type = this.restriction.type;
+      let rest = this.$store.getters.getRestriction(type);
+      if (rest)
+        ret = rest.text;
       return ret;
     }
   }

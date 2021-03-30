@@ -38,7 +38,7 @@
     </b-row>
     <b-row>
       <b-col cols="6">
-        <div class="border border-primary border-1px solid m-2 p-2 rounded">
+        <div class="border border-dark border-1px solid p-2 mt-1 rounded">
           <b-form>
             <h3>Angaben zum Objekt</h3>
             <b-form-group>
