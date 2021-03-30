@@ -27,7 +27,8 @@
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto p-1">
             <b-button v-b-modal.json-input>JSON ein-/ausgeben</b-button>
-            <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:">
+            <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:" @hide="resetJSON"
+                     @show="updateJSON()" @ok="parseJSON()">
               <b-form-textarea id="json-input-field" v-model.lazy="librmlText" max-rows="20" rows="10" size="sm">
               </b-form-textarea>
             </b-modal>
@@ -142,6 +143,15 @@ export default {
     loadLocal(index) {
       this.librml = this.persistedLibRMLs[index].librml
       this.updateRIDs()
+    },
+    updateJSON() {
+      this.librmlText = JSON.stringify(this.librml, null, 2)
+    },
+    resetJSON() {
+      this.librmlText = ''
+    },
+    parseJSON() {
+      this.librml = JSON.parse(this.librmlText)
     }
   },
   name: 'App',
@@ -152,20 +162,6 @@ export default {
   mounted() {
     if (localStorage.getItem('persistedLibRMLs')) {
       this.persistedLibRMLs = JSON.parse(localStorage.getItem('persistedLibRMLs'))
-    }
-    this.librmlText = JSON.stringify(this.librml, null, 2)
-  },
-  watch: {
-    librmlText: function (newValue) {
-      try {
-        let newLibRML = JSON.parse(newValue);
-        this.librml = newLibRML;
-      } catch (err) {
-        console.log("seems to be invalid json: " + err);
-      }
-    },
-    librml: function (newValue) {
-      this.librmlText = JSON.stringify(newValue, null, 2)
     }
   }
 }
