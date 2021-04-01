@@ -1,27 +1,20 @@
 <template>
   <div>
-    <b-form-group label="Innerhalb geografischer Region">
-      <div v-for="(inside, index) in insides" :key="index">
-        <b-input-group class="mb-2">
-          <b-form-input v-bind:id="'inside-' + index" v-model="inside.value" @blur="updateInside()"></b-form-input>
-          <b-input-group-append is-text>
-            <b-icon icon="x-circle-fill" @click="deleteInside(index)"></b-icon>
-          </b-input-group-append>
-        </b-input-group>
-      </div>
-      <b-button class="m-1" @click="addInside()">Region hinzufügen</b-button>
-    </b-form-group>
-    <b-form-group label="Außerhalb geografischer Region">
-      <div v-for="(outside, index) in outsides" :key="index">
-        <b-input-group class="mb-2">
-          <b-form-input v-bind:id="'outside-' + index" v-model="outside.value" @blur="updateOutside()"></b-form-input>
-          <b-input-group-append is-text>
-            <b-icon icon="x-circle-fill" @click="deleteOutside(index)"></b-icon>
-          </b-input-group-append>
-        </b-input-group>
-      </div>
-      <b-button class="m-1" @click="addOutside()">Region hinzufügen</b-button>
-    </b-form-group>
+    <div class="float-right pb-1 pt-1">
+      <b-icon id="location-help" aria-label="Hilfe" icon="question-circle"></b-icon>
+      <b-popover placement="right" target="location-help" title="Geografische oder Institutionelle Beschränkung"
+                 triggers="hover focus">
+        Die Nutzung der Ressource auf eine benannte geografische Region einschränken. Dabei kann sowohl innenhalb als
+        auch außerhalb definiert werden. Das könnte zum Beispiel "Deutschland" sein. Die identifizierung wird durch das
+        Präsentationssystem ausgewertet.<br>
+        Ebenso kann die Nutzung auf Netzwerke oder Maschinen begrenzt werden. Subnetze identifizieren zum Beispiel eine
+        Instutition oder eine MAC-Adresse eine genau spezifizierte Maschine auf der die Ressource genutzt werden kann.
+      </b-popover>
+    </div>
+    <label label-for="inside">Innerhalb einer Region:</label>
+    <b-input id="inside" v-model.trim="restriction.inside" type="text"></b-input>
+    <label label-for="outside">Außerhalb einer Region:</label>
+    <b-input id="outside" v-model.trim="restriction.outside" type="text"></b-input>
     <b-form-group label="Zulässiges Netzwerk">
       <div v-for="(network, index) in networks" :key="index">
         <b-input-group class="mb-2">
@@ -55,36 +48,18 @@ export default {
   },
   data() {
     return {
-      insides: [],
-      outsides: [],
+      inside: '',
+      outside: '',
       networks: [],
       machines: [],
     }
   },
   methods: {
-    addInside() {
-      this.insides.push({value: ''})
-    },
-    addOutside() {
-      this.outsides.push({value: ''})
-    },
     addNetwork() {
       this.networks.push({value: ''})
     },
     addMachine() {
       this.machines.push({value: ''})
-    },
-    updateInside() {
-      this.restriction.inside = []
-      for (let inside of this.insides) {
-        this.restriction.inside.push(inside.value)
-      }
-    },
-    updateOutside() {
-      this.restriction.outside = []
-      for (let outside of this.outsides) {
-        this.restriction.outside.push(outside.value)
-      }
     },
     updateNetwork() {
       this.restriction.networks = []
@@ -97,14 +72,6 @@ export default {
       for (let machine of this.machines) {
         this.restriction.machine.push(machine.value)
       }
-    },
-    deleteInside(index) {
-      this.$delete(this.insides, index)
-      this.updateInside()
-    },
-    deleteOutside(index) {
-      this.$delete(this.outsides, index)
-      this.updateOutside()
     },
     deleteMachine(index) {
       this.$delete(this.machines, index)

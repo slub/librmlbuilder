@@ -1,5 +1,14 @@
 <template>
   <b-form-group id="group-group" label="Nutzergruppen" label-for="group">
+    <div class="float-right pb-1 pt-1">
+      <b-icon id="group-help" aria-label="Hilfe" icon="question-circle"></b-icon>
+      <b-popover placement="right" target="group-help" title="Personen oder Gruppen"
+                 triggers="hover focus">
+        Die Aktion wird auf identifierbare Personen oder Gruppen eingeschränkt. Dies können zum Beispiel Gruppen sein,
+        die durch Shibboleth identifiert sind oder durch eine andere Methode dem Präsentationssystem bekannt sind.<br>
+        Beispiele wären: registered, employee
+      </b-popover>
+    </div>
     <div v-for="(group, index) in groups" :key="index">
       <b-input-group class="mb-2">
         <b-form-input v-bind:id="'group-' + index" v-model="group.value" @blur="updateGroups()"></b-form-input>

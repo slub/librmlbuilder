@@ -1,4 +1,3 @@
-import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -10,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import App from './App.vue'
+import {LibRML} from "@/librml/librml";
 
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
@@ -21,35 +21,36 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
     state: {
         actions: [
-            {value: 'meta', text: 'Metadaten anzeigen '},
-            {value: 'read', text: 'Lesen/Anzeigen'},
-            {value: 'run', text: 'Ausführen'},
-            {value: 'lend', text: 'Leihen'},
-            {value: 'download', text: 'Herunterladen'},
-            {value: 'print', text: 'Drucken'},
-            {value: 'reproduce', text: 'Reproduzieren'},
-            {value: 'modify', text: 'Ändern'},
-            {value: 'reuse', text: 'Wiederverwenden'},
-            {value: 'distribute', text: 'Verteilen'},
-            {value: 'publish', text: 'Veröffentlichen'},
-            {value: 'archive', text: 'Archivieren'},
-            {value: 'index', text: 'In den Katalog aufnehmen'},
-            {value: 'move', text: 'In Datenbanken bewegen'},
+            {value: 'displaymetadata', text: 'Anzeige der Metadaten im Katalog'},
+            {value: 'read', text: 'Öffnen und Lesen der Ressource'},
+            {value: 'run', text: 'Ausführen der Ressource'},
+            {value: 'lend', text: 'Verleih der Ressource'},
+            {value: 'download', text: 'Herunterladen einer Datei'},
+            {value: 'print', text: 'Ausdrucken des Werkes'},
+            {value: 'reproduce', text: 'Vervielfältigung der Ressource'},
+            {value: 'modify', text: 'Bearbeitung, Übersetzung, Umarbeitung'},
+            {value: 'reuse', text: 'Wiederverwendung des Werkes'},
+            {value: 'distribute', text: 'nicht-öffentliches Verbreiten der Ressource'},
+            {value: 'publish', text: 'öffentliches Verbreiten oder Vorführen der Ressource'},
+            {value: 'archive', text: 'Speicherung der Ressource zum Zweck der Archivierung'},
+            {value: 'index', text: 'Erzeugung und/oder das Einfügen von Metadaten in einen Index'},
+            {value: 'move', text: 'Übertragung der Ressource zwischen Datenbanken'},
         ],
         restrictions: [
-            {value: 'date', text: 'Zeit'},
-            {value: 'age', text: 'Alter'},
-            {value: 'duration', text: 'Dauer'},
-            {value: 'count', text: 'Anzahl'},
+            {value: 'date', text: 'Zeitpunkt (Embargo)'},
+            {value: 'age', text: 'Nutzer eines bestimmten Alters'},
+            {value: 'duration', text: 'bestimmte Zeitdauer'},
+            {value: 'count', text: 'bestimmte Anzahl an Ausführungen'},
             {value: 'concurrent', text: 'Gleichzeitige Ausführung'},
-            {value: 'commercialuse', text: 'Kommerzielle Verwendung'},
-            {value: 'agreement', text: 'Spezielle Zustimmung'},
-            {value: 'group', text: 'Nutzergruppe'},
-            {value: 'quality', text: 'Qualität'},
-            {value: 'watermark', text: 'Wasserzeichen'},
-            {value: 'parts', text: 'Teile des Werkes'},
-            {value: 'location', text: 'Ortsbeschränkung'},
-        ]
+            {value: 'commercialuse', text: 'Kommerzielle Nutzung'},
+            {value: 'agreement', text: 'Zustimmung zu Nutzungsbedingungen oder Verträgen'},
+            {value: 'group', text: 'bestimmte Personen oder Personengruppen'},
+            {value: 'quality', text: 'maximale Qualität'},
+            {value: 'watermark', text: 'Kennzeichnung der Ressource'},
+            {value: 'parts', text: 'Teile der Ressource'},
+            {value: 'location', text: 'Geographisch/Institutionell'},
+        ],
+        librml: new LibRML()
     },
     getters: {
         getRestriction: (state) => (type) => {
@@ -63,6 +64,17 @@ const store = new Vuex.Store({
         },
         getRestrictions: state => {
             return state.restrictions
+        },
+        getLibRML: state => {
+            return state.librml
+        }
+    },
+    mutations: {
+        setLibRML: (state, value) => state.librml = value
+    },
+    actions: {
+        setLibRML(context, value) {
+            context.commit('setLibRML', value)
         }
     }
 })

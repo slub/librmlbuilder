@@ -28,7 +28,7 @@
           <b-navbar-nav class="ml-auto p-1">
             <b-button v-b-modal.json-input>JSON ein-/ausgeben</b-button>
             <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:" @hide="resetJSON"
-                     @show="updateJSON()" @ok="parseJSON()">
+                     @ok="parseJSON()" @show="updateJSON()">
               <b-form-textarea id="json-input-field" v-model.lazy="librmlText" max-rows="20" rows="10" size="sm">
               </b-form-textarea>
             </b-modal>
@@ -87,7 +87,7 @@
 
       </b-col>
       <b-col cols="6">
-        <vue-json-pretty :data=this.librml></vue-json-pretty>
+        <vue-json-pretty :data="this.librml" showDoubleQuotes showLine></vue-json-pretty>
       </b-col>
     </b-row>
   </b-container>
@@ -102,14 +102,26 @@ import VueJsonPretty from 'vue-json-pretty'
 export default {
   data() {
     return {
-      librml: new LibRML(),
       librmlText: '',
       otherids: [],
       metarights: [],
       persistedLibRMLs: [],
     }
   },
+  computed: {
+    librml: {
+      get() {
+        return this.$store.getters.getLibRML
+      },
+      set(value) {
+        this.setLibRML(value)
+      }
+    }
+  },
   methods: {
+    setLibRML(value) {
+      this.$store.dispatch("setLibRML", value)
+    },
     updateOids() {
       this.librml.relatedids = []
       for (let oid of this.otherids) {

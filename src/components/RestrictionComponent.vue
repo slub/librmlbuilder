@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     deleteRestriction(index) {
-      this.$delete(this.$parent.action.restrictions, index)
+      this.$delete(this.$parent.$parent.action.restrictions, index)
     }
   },
   computed: {
