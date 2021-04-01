@@ -50,7 +50,7 @@
     "rules": {}
   },
   "engines": {
-    "node": "15.x"
+    "node": "14.x"
   },
   "browserslist": [
     "> 1%",
