@@ -4,7 +4,7 @@
       <b-icon id="group-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="group-help" title="Personen oder Gruppen"
                  triggers="hover focus">
-        Die Aktion wird auf identifierbare Personen oder Gruppen eingeschränkt. Dies können zum Beispiel Gruppen sein,
+        Das Nutzungsrecht wird auf identifizierbare Personen oder Gruppen eingeschränkt. Dies können zum Beispiel Gruppen sein,
         die durch Shibboleth identifiert sind oder durch eine andere Methode dem Präsentationssystem bekannt sind.<br>
         Beispiele wären: registered, employee
       </b-popover>

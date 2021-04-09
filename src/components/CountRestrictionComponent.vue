@@ -2,9 +2,9 @@
   <div>
     <div class="float-right pb-1 pt-1">
       <b-icon id="count-help" aria-label="Hilfe" icon="question-circle"></b-icon>
-      <b-popover placement="right" target="count-help" title="Anzahl der Aktionen"
+      <b-popover placement="right" target="count-help" title="Anzahl der Nutzungsrechte"
                  triggers="hover focus">
-        Die maximal zulässige Anzahl der Durchführung Aktion die auf der Ressource wird beschränkt.
+        Die maximal zulässige Anzahl der Durchführungen dieses Nutzungsrechts auf der Ressource wird beschränkt.
       </b-popover>
     </div>
     <label label-for="count">Anzahl:</label>

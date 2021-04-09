@@ -8,10 +8,10 @@
         <b-icon v-b-toggle='"action-" + index' icon="arrows-angle-contract"></b-icon>
       </div>
     </h3>
-    <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Aktion kopieren"
+    <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Nutzungsrecht kopieren"
              @hide="resetSelectedActions()" @ok="copySelectedActions()">
-      <p size="small">Die Einschränkungen auf folgende Aktionen kopieren. Die Aktionen werden alle neu angelegt! Dabei
-        verdoppeln sich evtl. bereits bestrehende Aktionen des gleichen Typs.</p>
+      <p size="small">Die Einschränkungen auf folgende Nutzungsrechte kopieren. Die Nutzungsrechte werden alle neu angelegt! Dabei
+        verdoppeln sich evtl. bereits bestehende Nutzungsrechte des gleichen Typs.</p>
       <b-form-checkbox-group v-model="selectedCopys" stacked>
         <b-form-checkbox v-for="(item, index) in actionOptions" :key="index" :value="item.value">{{
             item.text
@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     actionName: function () {
-      let ret = "Aktion auswählen"
+      let ret = "Nutzungsrecht auswählen"
       let type = this.action.type
       let atext = this.$store.getters.getAction(type)
       if (atext)

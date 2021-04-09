@@ -4,7 +4,7 @@
       <b-icon id="watermark-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="watermark-help" title="Kennzeichnung der Ressource"
                  triggers="hover focus">
-        Die Aktion darf auf der Ressource ausgeführt werden, dabei muss die Ressource aber mit einer Kennzeichnung
+        Das Nutzungsrecht darf auf der Ressource ausgeführt werden, dabei muss die Ressource aber mit einer Kennzeichnung
         versehen werden. Als Beispiel ein Wasserzeichen über einem Bild. Die Angabe wird vom Präsentationssystem
         verarbeitet und kann einen Text oder eine URL enthalten.
       </b-popover>

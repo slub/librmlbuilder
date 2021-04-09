@@ -4,7 +4,7 @@
       <b-icon id="duration-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="duration-help" title="Ausführungsdauer"
                  triggers="hover focus">
-        Die Aktion wird in der Dauer ihrer Anwendung auf der Ressource beschränkt. Die Angabe erfolgt technisch in
+        Das Nutzungsrecht wird in der Dauer der Anwendung auf der Ressource beschränkt. Die Angabe erfolgt technisch in
         Sekunden.
       </b-popover>
     </div>
