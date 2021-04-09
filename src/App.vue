@@ -81,7 +81,7 @@
           <ActionComponent v-for="(action, index) in librml.actions" :key="index" :action="action"
                            :index="index"></ActionComponent>
           <div class=" m-2 p-3">
-            <b-button type="button" @click="addAction()">Aktion hinzufügen</b-button>
+            <b-button type="button" @click="addAction()">Nutzungsrecht hinzufügen</b-button>
           </div>
         </div>
 
