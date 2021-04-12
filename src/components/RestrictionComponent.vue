@@ -1,7 +1,7 @@
 <template>
   <div class="border border-dark border-1px solid mt-1 mb-1 p-2 rounded">
     <h6>
-      <b-icon class="pr-1" icon="x-circle" variant="danger" @click="deleteRestriction(index)"></b-icon>
+      <b-icon v-b-tooltip.hover="'Einschränkung löschen'" class="pr-1" icon="x-circle" variant="danger" @click="deleteRestriction(index)"></b-icon>
       {{ restrictionName }}
     </h6>
     <DateRestrictionComponent v-if="restriction.type=='date'" :restriction="restriction"></DateRestrictionComponent>

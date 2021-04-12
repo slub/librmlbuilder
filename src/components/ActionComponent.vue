@@ -1,11 +1,11 @@
 <template>
   <div class="border border-dark solid mt-1 mb-1 p-2 rounded">
     <h3>
-      <b-icon class="pr-2" icon="x-circle" variant="danger" @click="deleteAction(index)"></b-icon>
-      <b-icon v-b-modal="'copymodal-' + index" class="pr-2" icon="arrow-down-up"></b-icon>
+      <b-icon v-b-tooltip.hover="'Nutzungsrecht löschen'" class="pr-2" icon="x-circle" variant="danger" @click="deleteAction(index)"></b-icon>
+      <b-icon v-b-modal="'copymodal-' + index" v-b-tooltip.hover="'Nutzungsrechte kopieren'" class="pr-2" icon="stickies"></b-icon>
       {{ actionName }}
       <div class="float-right small">
-        <b-icon v-b-toggle='"action-" + index' icon="arrows-angle-contract"></b-icon>
+        <b-icon v-b-toggle='"action-" + index' v-b-tooltip.hover="'Nutzungsrecht verkleinern oder vergrößern'" icon="chevron-bar-contract" v-b-tooltip.hover.html></b-icon>
       </div>
     </h3>
     <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Nutzungsrecht kopieren"
