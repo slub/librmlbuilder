@@ -4,7 +4,7 @@
       <b-icon id="age-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="age-help" title="Einschränkung auf Nutzer eines bestimmten Alters."
                  triggers="hover focus">
-        Die Benutzung der Resseource kann auf Nutzer mit einem bestimmten Mindestalter oder einem Höchstalter
+        Die Benutzung der Ressource kann auf Nutzer mit einem bestimmten Mindestalter oder Höchstalter
         eingeschränkt werden.
       </b-popover>
     </div>

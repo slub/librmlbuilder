@@ -10,7 +10,7 @@
     </h3>
     <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Nutzungsrecht kopieren"
              @hide="resetSelectedActions()" @ok="copySelectedActions()">
-      <p size="small">Die Einschränkungen auf folgende Nutzungsrechte kopieren. Die Nutzungsrechte werden alle neu angelegt! Dabei
+      <p size="small">Die Einschränkungen auf folgende Nutzungsrechte kopieren. Die Nutzungsrechte werden alle neu angelegt. Dabei
         verdoppeln sich evtl. bereits bestehende Nutzungsrechte des gleichen Typs.</p>
       <b-form-checkbox-group v-model="selectedCopys" stacked>
         <b-form-checkbox v-for="(item, index) in actionOptions" :key="index" :value="item.value">{{

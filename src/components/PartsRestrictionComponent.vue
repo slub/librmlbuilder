@@ -4,7 +4,7 @@
       <b-icon id="parts-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="parts-help" title="Benannte Teile der Ressource"
                  triggers="hover focus">
-        Benannte Teile der Ressource auf die das Nutzungsrecht eingeschränkt werden kann. Beispiele dafür sind zum Beispiel: Seiten einer Publikation.<br>
+        Benannte Teile der Ressource auf die das Nutzungsrecht eingeschränkt werden kann. Beispiele dafür sind: Seiten einer Publikation.<br>
         Diese Teile des Werkes müssen vom Präsentationssystem identifierbar sein.
       </b-popover>
     </div>

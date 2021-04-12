@@ -5,7 +5,7 @@
       <b-popover placement="right" target="concurrent-help" title="Gleichzeitige Ausführung"
                  triggers="hover focus">
         Die Anzahl der gleichzeitigen Ausführungen wird beschränkt. Zum Beispiel darf die Anwendung/Datenbank nur 3 mal
-        gleichzeitig laufen. Oder das Werk darf nur einmal ausgeliehen sein.
+        gleichzeitig laufen. Oder das Werk darf nur von vier Personen gleichzeitig ausgeliehen sein.
       </b-popover>
     </div>
     <label label-for="concurrent">Gleichzeitige Ausführungen:</label>

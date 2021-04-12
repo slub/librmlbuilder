@@ -4,7 +4,7 @@
       <b-icon id="agreement-help" aria-label="Hilfe" icon="question-circle"></b-icon>
       <b-popover placement="right" target="agreement-help" title="Zustimmung zu einem Vertrag oder Nutzungsbedingungen"
                  triggers="hover focus">
-        Die Benutzung des Werkes setzt die Zustimmung zu speziellen Nutzungsbedingungen oder zu einen Vertrag voraus.
+        Die Benutzung der Ressource setzt die Zustimmung zu speziellen Nutzungsbedingungen oder zu einen Vertrag voraus.
         Dies können zum Beispiel ein Geheimhaltungsabkommen oder Geschäftsbedingungen sein.
       </b-popover>
     </div>
