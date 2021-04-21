@@ -18,7 +18,7 @@
     <b-form-group label="Zulässiges Netzwerk">
       <div v-for="(network, index) in networks" :key="index">
         <b-input-group class="mb-2">
-          <b-form-input v-bind:id="'network-' + index" v-model="network.value" @blur="updateNetwork()"></b-form-input>
+          <b-form-input v-bind:id="'subnet-' + index" v-model="subnets.value" @blur="updateNetwork()"></b-form-input>
           <b-input-group-append is-text>
             <b-icon icon="x-circle-fill" @click="deleteNetwork(index)"></b-icon>
           </b-input-group-append>
@@ -50,21 +50,21 @@ export default {
     return {
       inside: '',
       outside: '',
-      networks: [],
+      subnets: [],
       machines: [],
     }
   },
   methods: {
     addNetwork() {
-      this.networks.push({value: ''})
+      this.subnets.push({value: ''})
     },
     addMachine() {
       this.machines.push({value: ''})
     },
     updateNetwork() {
-      this.restriction.networks = []
+      this.restriction.subnet = []
       for (let network of this.networks) {
-        this.restriction.networks.push(network.value)
+        this.restriction.subnet.push(network.value)
       }
     },
     updateMachine() {
@@ -78,7 +78,7 @@ export default {
       this.updateMachine()
     },
     deleteNetwork(index) {
-      this.$delete(this.networks, index)
+      this.$delete(this.subnets, index)
       this.updateNetwork()
     },
   }

@@ -16,7 +16,7 @@
             </b-navbar-nav>
           </b-collapse>
           <b-navbar-nav class="ml-auto p-1">
-            <b-dropdown id="loadlocal" text="LibRMLs laden">
+            <b-dropdown id="loadlocal" text="LibRMLs laden" :disabled="loadEnabled">
               <b-dropdown-item v-for="(item, index) in this.persistedLibRMLs" :key="index" @click="loadLocal(index)">
                 {{ item.name }}
               </b-dropdown-item>
@@ -29,7 +29,7 @@
             <b-button v-b-modal.json-input>JSON Import/Export</b-button>
             <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:" @hide="resetJSON"
                      @ok="parseJSON()" @show="updateJSON()">
-              <p>Kopieren sie das gewünschte JSON hier heraus/hinein</p>       
+              <p>Kopieren sie das gewünschte JSON hier heraus/hinein</p>
               <b-form-textarea id="json-input-field" v-model.lazy="librmlText" max-rows="20" rows="10" size="sm">
               </b-form-textarea>
             </b-modal>
@@ -41,25 +41,16 @@
       <b-col cols="6">
         <div class="border border-dark border-1px solid p-2 mt-1 rounded">
           <b-form>
-            <h3>Angaben zum Objekt</h3>
+            <h3>LibRML</h3>
             <b-form-group>
-              <b-input-group id="id-group" description="Die eindeutige ID des Objektes" label="ID" label-for="id-input">
-                <b-form-input id="id-input" v-model="librml.id" placeholder="1234567890-abd" required></b-form-input>
-                <b-input-group-append is-text>
-                  <b-icon icon="file-arrow-down-fill" @click="saveLocal()"></b-icon>
-                </b-input-group-append>
-              </b-input-group>
-            </b-form-group>
-            <b-form-group id="otherid-group" label="Andere IDs" label-for="oid">
-              <div v-for="(oid, index) in this.otherids" :key="index">
-                <b-input-group class="mb-2">
-                  <b-form-input v-bind:id="'oid-' + index" v-model="oid.value" @change="updateOids()"></b-form-input>
-                  <b-input-group-append is-text>
-                    <b-icon icon="x-circle-fill" @click="deleteOID(index)"></b-icon>
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-              <b-button class="m-1" @click="addOID()">Andere ID hinzufügen</b-button>
+              <label for="librmlid">Eindeutige ID des LibRML</label>
+              <b-form-input id="librmlid" v-model.trim="librml.id" placeholder="1234567890-abd"
+                            required></b-form-input>
+              <b-button-group size="sm" class="pt-1 float-right">
+                <b-button :disabled='deleteEnabled' @click="deleteLocal()" variant="outline-primary">Löschen
+                </b-button>
+                <b-button :disabled='saveEnabled' @click="saveLocal()" variant="outline-primary">Speichern</b-button>
+              </b-button-group>
             </b-form-group>
             <b-form-group id="tenant-group"
                           description="Verwalter des Objektes, hier die ID der Institution, auf die die Nutzungsrechte angewandt werden können."
@@ -104,9 +95,9 @@ export default {
   data() {
     return {
       librmlText: '',
-      otherids: [],
       metarights: [],
       persistedLibRMLs: [],
+      loadedIndex: -1
     }
   },
   computed: {
@@ -117,45 +108,39 @@ export default {
       set(value) {
         this.setLibRML(value)
       }
+    },
+    saveEnabled: function () {
+      return this.librml.id == ''
+    },
+    deleteEnabled: function () {
+      return this.loadedIndex == -1
+    },
+    loadEnabled: function () {
+      return this.persistedLibRMLs.length == 0
     }
   },
   methods: {
     setLibRML(value) {
       this.$store.dispatch("setLibRML", value)
     },
-    updateOids() {
-      this.librml.relatedids = []
-      for (let oid of this.otherids) {
-        this.librml.relatedids.push(oid.value)
-      }
-    },
     addAction() {
       this.librml.actions.push(new Action())
     },
     loadNew() {
       this.librml = new LibRML()
-      this.updateRIDs()
-    },
-    addOID() {
-      this.otherids.push({value: ''})
-    },
-    deleteOID(index) {
-      this.$delete(this.otherids, index)
-      this.updateOids()
-    },
-    updateRIDs() {
-      this.otherids = []
-      for (let rid of this.librml.relatedids) {
-        this.otherids.push({value: rid});
-      }
     },
     saveLocal() {
       this.persistedLibRMLs.push({name: this.librml.id, librml: this.librml})
       localStorage.setItem('persistedLibRMLs', JSON.stringify(this.persistedLibRMLs))
     },
+    deleteLocal() {
+      this.$delete(this.persistedLibRMLs, this.loadedIndex)
+      localStorage.setItem('persistedLibRMLs', JSON.stringify(this.persistedLibRMLs))
+      this.loadNew()
+    },
     loadLocal(index) {
       this.librml = this.persistedLibRMLs[index].librml
-      this.updateRIDs()
+      this.loadedIndex = index
     },
     updateJSON() {
       this.librmlText = JSON.stringify(this.librml, null, 2)

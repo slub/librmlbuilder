@@ -1,6 +1,5 @@
 class LibRML extends Object {
     id = '';
-    relatedids = [];
     tenant = '';
     usageguide = '';
     mention = false;
