@@ -26,9 +26,10 @@
             <b-button @click="loadNew()">Neues LibRML starten!</b-button>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto p-1">
-            <b-button v-b-modal.json-input>JSON ein-/ausgeben</b-button>
+            <b-button v-b-modal.json-input>JSON Import/Export</b-button>
             <b-modal id="json-input" centered ok-only scrollable title="JSON Quelltext:" @hide="resetJSON"
                      @ok="parseJSON()" @show="updateJSON()">
+              <p>Kopieren sie das gewünschte JSON hier heraus/hinein</p>       
               <b-form-textarea id="json-input-field" v-model.lazy="librmlText" max-rows="20" rows="10" size="sm">
               </b-form-textarea>
             </b-modal>
