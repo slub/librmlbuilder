@@ -1,16 +1,21 @@
 <template>
   <div class="border border-dark solid mt-1 mb-1 p-2 rounded">
     <h3>
-      <b-icon v-b-tooltip.hover="'Nutzungsrecht löschen'" class="pr-2" icon="x-circle" variant="danger" @click="deleteAction(index)"></b-icon>
-      <b-icon v-b-modal="'copymodal-' + index" v-b-tooltip.hover="'Nutzungsrechte kopieren'" class="pr-2" icon="stickies"></b-icon>
+      <b-icon v-b-tooltip.hover="'Nutzungsrecht löschen'" class="pr-2" icon="x-circle" variant="danger"
+              @click="deleteAction(index)"></b-icon>
+      <b-icon v-b-modal="'copymodal-' + index" v-b-tooltip.hover="'Nutzungsrechte kopieren'" class="pr-2"
+              icon="stickies"></b-icon>
       {{ actionName }}
       <div class="float-right small">
-        <b-icon v-b-toggle='"action-" + index' v-b-tooltip.hover="'Nutzungsrecht verkleinern oder vergrößern'" icon="chevron-bar-contract" v-b-tooltip.hover.html></b-icon>
+        <b-icon v-b-toggle='"action-" + index' v-b-tooltip.hover="'Nutzungsrecht verkleinern oder vergrößern'"
+                icon="chevron-bar-contract" v-b-tooltip.hover.html></b-icon>
       </div>
     </h3>
-    <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren" title="Nutzungsrecht kopieren"
+    <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren"
+             title="Nutzungsrecht kopieren"
              @hide="resetSelectedActions()" @ok="copySelectedActions()">
-      <p size="small">Die Einschränkungen auf folgende Nutzungsrechte kopieren. Die Nutzungsrechte werden alle neu angelegt. Dabei
+      <p size="small">Die Einschränkungen auf folgende Nutzungsrechte kopieren. Die Nutzungsrechte werden alle neu
+        angelegt. Dabei
         verdoppeln sich evtl. bereits bestehende Nutzungsrechte des gleichen Typs.</p>
       <b-form-checkbox-group v-model="selectedCopys" stacked>
         <b-form-checkbox v-for="(item, index) in actionOptions" :key="index" :value="item.value">{{
@@ -24,7 +29,9 @@
       <b-form-checkbox v-model="action.permission" size="lg" switch>Erlaubt</b-form-checkbox>
       <div v-if="action.permission" class="border-sm secondary p-2 rounded">
         <h4>Einschränkungen</h4>
-        <div v-if="action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine Einschränkungen.</div>
+        <div v-if="action.restrictions && action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine
+          Einschränkungen.
+        </div>
         <RestrictionComponent v-for="(restriction, index) in action.restrictions" v-bind:id="'restriction-' + index"
                               :key="index"
                               :index="index" :restriction="restriction"></RestrictionComponent>
@@ -59,8 +66,12 @@ export default {
   },
   methods: {
     addRestriction(res) {
-      if (res)
+      if (res) {
+        if (!this.action.restrictions) {
+          this.action.restrictions = []
+        }
         this.action.restrictions.push(new Restriction(res))
+      }
     },
     deleteAction(index) {
       this.$delete(this.$parent.librml.actions, index)
