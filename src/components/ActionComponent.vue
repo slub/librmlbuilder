@@ -8,7 +8,7 @@
       {{ actionName }}
       <div class="float-right small">
         <b-icon v-b-toggle='"action-" + index' v-b-tooltip.hover="'Nutzungsrecht verkleinern oder vergrößern'"
-                icon="chevron-bar-contract" v-b-tooltip.hover.html></b-icon>
+                v-b-tooltip.hover.html icon="chevron-bar-contract"></b-icon>
       </div>
     </h3>
     <b-modal :id="'copymodal-' + index" cancel-title="Abbrechen" centered ok-title="Kopieren"
@@ -32,9 +32,9 @@
         <div v-if="action.restrictions && action.restrictions.length==0" class="bg-light rounded p-2 m-2">Keine
           Einschränkungen.
         </div>
-        <RestrictionComponent v-for="(restriction, index) in action.restrictions" v-bind:id="'restriction-' + index"
-                              :key="index"
-                              :index="index" :restriction="restriction"></RestrictionComponent>
+        <RestrictionComponent v-for="(restriction, rindex) in action.restrictions"
+                              :id="'restriction-' + index + '-' + rindex"
+                              :key="100* index + rindex" :restriction="restriction" :rindex="100* index + rindex"></RestrictionComponent>
         <b-form-select v-model="selectedRestriction" :options="restrictionOptions"
                        @input="addRestriction(selectedRestriction)"></b-form-select>
 

@@ -1,30 +1,34 @@
 <template>
   <div class="border border-dark border-1px solid mt-1 mb-1 p-2 rounded">
     <h6>
-      <b-icon v-b-tooltip.hover="'Einschränkung löschen'" class="pr-1" icon="x-circle" variant="danger" @click="deleteRestriction(index)"></b-icon>
+      <b-icon v-b-tooltip.hover="'Einschränkung löschen'" class="pr-1" icon="x-circle" variant="danger"
+              @click="deleteRestriction(index)"></b-icon>
       {{ restrictionName }}
     </h6>
-    <DateRestrictionComponent v-if="restriction.type=='date'" :restriction="restriction"></DateRestrictionComponent>
-    <AgeRestrictionComponent v-if="restriction.type=='age'" :restriction="restriction"></AgeRestrictionComponent>
-    <DurationRestrictionComponent v-if="restriction.type=='duration'"
-                                  :restriction="restriction"></DurationRestrictionComponent>
-    <CountRestrictionComponent v-if="restriction.type=='count'" :restriction="restriction"></CountRestrictionComponent>
-    <ConcurrentRestrictionComponent v-if="restriction.type=='concurrent'"
-                                    :restriction="restriction"></ConcurrentRestrictionComponent>
-    <CommercialRestrictionComponent v-if="restriction.type=='commercialuse'"
-                                    :restriction="restriction"></CommercialRestrictionComponent>
-    <AgreementRestrictionComponent v-if="restriction.type=='agreement'"
-                                   :restriction="restriction"></AgreementRestrictionComponent>
-    <GroupRestrictionComponent v-if="restriction.type=='group'"
-                               :restriction="restriction"></GroupRestrictionComponent>
-    <QualityRestrictionComponent v-if="restriction.type=='quality'"
-                                 :restriction="restriction"></QualityRestrictionComponent>
-    <WatermarkRestrictionComponent v-if="restriction.type=='watermark'"
-                                   :restriction="restriction"></WatermarkRestrictionComponent>
-    <PartsRestrictionComponent v-if="restriction.type=='parts'"
-                               :restriction="restriction"></PartsRestrictionComponent>
-    <LocationRestrictionComponent v-if="restriction.type=='location'"
-                                  :restriction="restriction"></LocationRestrictionComponent>
+    <DateRestrictionComponent v-if="restriction.type=='date'" :key="rindex" :restriction="restriction"
+                              :rindex="rindex"></DateRestrictionComponent>
+    <AgeRestrictionComponent v-if="restriction.type=='age'" :key="rindex" :restriction="restriction"
+                             :rindex="rindex"></AgeRestrictionComponent>
+    <DurationRestrictionComponent v-if="restriction.type=='duration'" :key="rindex" :restriction="restriction"
+                                  :rindex="rindex"></DurationRestrictionComponent>
+    <CountRestrictionComponent v-if="restriction.type=='count'" :key="rindex" :restriction="restriction"
+                               :rindex="rindex"></CountRestrictionComponent>
+    <ConcurrentRestrictionComponent v-if="restriction.type=='concurrent'" :key="rindex" :restriction="restriction"
+                                    :rindex="rindex"></ConcurrentRestrictionComponent>
+    <CommercialRestrictionComponent v-if="restriction.type=='commercialuse'" :key="rindex" :restriction="restriction"
+                                    :rindex="rindex"></CommercialRestrictionComponent>
+    <AgreementRestrictionComponent v-if="restriction.type=='agreement'" :key="rindex" :restriction="restriction"
+                                   :rindex="rindex"></AgreementRestrictionComponent>
+    <GroupRestrictionComponent v-if="restriction.type=='group'" :key="rindex" :restriction="restriction"
+                               :rindex="rindex"></GroupRestrictionComponent>
+    <QualityRestrictionComponent v-if="restriction.type=='quality'" :key="rindex" :restriction="restriction"
+                                 :rindex="rindex"></QualityRestrictionComponent>
+    <WatermarkRestrictionComponent v-if="restriction.type=='watermark'" :key="rindex" :restriction="restriction"
+                                   :rindex="rindex"></WatermarkRestrictionComponent>
+    <PartsRestrictionComponent v-if="restriction.type=='parts'" :key="rindex" :restriction="restriction"
+                               :rindex="rindex"></PartsRestrictionComponent>
+    <LocationRestrictionComponent v-if="restriction.type=='location'" :key="rindex" :restriction="restriction"
+                                  :rindex="rindex"></LocationRestrictionComponent>
   </div>
 </template>
 
@@ -62,7 +66,7 @@ export default {
     restriction: {
       type: Object
     },
-    index: {
+    rindex: {
       type: Number
     }
   },
