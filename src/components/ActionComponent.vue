@@ -34,7 +34,8 @@
         </div>
         <RestrictionComponent v-for="(restriction, rindex) in action.restrictions"
                               :id="'restriction-' + index + '-' + rindex"
-                              :key="100* index + rindex" :restriction="restriction" :rindex="100* index + rindex"></RestrictionComponent>
+                              :key="100* index + rindex" :restriction="restriction"
+                              :rindex="100* index + rindex" :resid="rindex"></RestrictionComponent>
         <b-form-select v-model="selectedRestriction" :options="restrictionOptions"
                        @input="addRestriction(selectedRestriction)"></b-form-select>
 
@@ -66,10 +67,7 @@ export default {
   },
   methods: {
     addRestriction(res) {
-      if (res) {
-        if (!this.action.restrictions) {
-          this.action.restrictions = []
-        }
+      if (res && res !== '') {
         this.action.restrictions.push(new Restriction(res))
       }
     },
@@ -104,6 +102,10 @@ export default {
     restrictionOptions: function () {
       return this.$store.getters.getRestrictions
     }
+  },
+  mounted() {
+    if (!this.action.restrictions)
+      this.action.restrictions = []
   }
 }
 </script>

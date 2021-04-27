@@ -21,6 +21,7 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
     state: {
         actions: [
+            {value: '', text: 'Aktion auswählen', disabled: true},
             {value: 'displaymetadata', text: 'Anzeige der Metadaten im Katalog'},
             {value: 'read', text: 'Öffnen und Lesen der Ressource'},
             {value: 'run', text: 'Ausführen der Ressource'},
@@ -37,6 +38,7 @@ const store = new Vuex.Store({
             {value: 'move', text: 'Übertragung der Ressource zwischen Datenbanken'},
         ],
         restrictions: [
+            {value: null, text: 'Einschränkung auswählen', disabled: true},
             {value: 'date', text: 'Zeitpunkt (Embargo)'},
             {value: 'age', text: 'Nutzer eines bestimmten Alters'},
             {value: 'duration', text: 'bestimmte Zeitdauer'},
