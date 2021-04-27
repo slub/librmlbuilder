@@ -13,7 +13,27 @@
               <b-nav-item class="nav-link" href="https://slub.github.io/librml/" target="_blank">
                 Über LibRML
               </b-nav-item>
+              <b-nav-item v-b-modal.aboutinfo class="nav-link" href="#">
+                Über LibRML-Builder
+              </b-nav-item>
             </b-navbar-nav>
+            <b-modal id="aboutinfo" centered title="Über LibRML-Builder" button-size="sm" ok-only
+                     ok-title="Verstanden!">
+              <p class="my-2">Dieser LibRML-Builder ist eine frühe Version einer Oberfläche um LibRML-Objekte zu
+                erstellen
+                und einen visuellen Eindruck von den Lizenzbedingungen und Nutzungsrechten zu bekommen.</p>
+              <p class="my-2">Da sehr viel an dieser kleinen Anwendung gebaut wird, können Fehler auftreten
+                und Funktionen nicht implementiert sein.</p>
+              <p class="my-2">Ein bekannter Fehler betrifft Einschränkungen mit Arrays. Zum Beispiel Gruppen, Netzwerke
+                etc. Wenn der Inhalt der Arrys verändert wird oder Elemente gelöscht oder hinzugefügt werden, sieht man
+                das nicht sofort im JSON.</p>
+              <p class="my-2">Es handelt sich hier um eine OpenSource Anwendung die bei GitHub verfügbar ist. Feedback
+                und Fehler Berichte sind dort willkommen.</p>
+              <ul>
+                <li><a href="https://github.com/slub/librmlbuilder" target="_blank">Github Projekt</a></li>
+                <li><a href="https://github.com/slub/librmlbuilder/issues" target="_blank">Github Feedback</a></li>
+              </ul>
+            </b-modal>
           </b-collapse>
           <b-navbar-nav class="ml-auto p-1">
             <b-dropdown id="loadlocal" text="LibRMLs laden" :disabled="loadEnabled">
