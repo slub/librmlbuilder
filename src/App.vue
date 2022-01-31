@@ -17,8 +17,8 @@
                 Über LibRML-Builder
               </b-nav-item>
             </b-navbar-nav>
-            <b-modal id="aboutinfo" centered title="Über LibRML-Builder" button-size="sm" ok-only
-                     ok-title="Verstanden!">
+            <b-modal id="aboutinfo" button-size="sm" centered ok-only ok-title="Verstanden!"
+                     title="Über LibRML-Builder">
               <p class="my-2">Dieser LibRML-Builder ist eine frühe Version einer Oberfläche um LibRML-Objekte zu
                 erstellen
                 und einen visuellen Eindruck von den Lizenzbedingungen und Nutzungsrechten zu bekommen.</p>
@@ -36,7 +36,7 @@
             </b-modal>
           </b-collapse>
           <b-navbar-nav class="ml-auto p-1">
-            <b-dropdown id="loadlocal" text="LibRMLs laden" :disabled="loadEnabled">
+            <b-dropdown id="loadlocal" :disabled="loadEnabled" text="LibRMLs laden">
               <b-dropdown-item v-for="(item, index) in this.persistedLibRMLs" :key="index" @click="loadLocal(index)">
                 {{ item.name }}
               </b-dropdown-item>
@@ -66,10 +66,10 @@
               <label for="librmlid">Eindeutige ID des LibRML</label>
               <b-form-input id="librmlid" v-model.trim="librml.id" placeholder="1234567890-abd"
                             required></b-form-input>
-              <b-button-group size="sm" class="pt-1 float-right">
-                <b-button :disabled='deleteEnabled' @click="deleteLocal()" variant="outline-primary">Löschen
+              <b-button-group class="pt-1 float-right" size="sm">
+                <b-button :disabled='deleteEnabled' variant="outline-primary" @click="deleteLocal()">Löschen
                 </b-button>
-                <b-button :disabled='saveEnabled' @click="saveLocal()" variant="outline-primary">Speichern</b-button>
+                <b-button :disabled='saveEnabled' variant="outline-primary" @click="saveLocal()">Speichern</b-button>
               </b-button-group>
             </b-form-group>
             <b-form-group id="tenant-group"
@@ -86,9 +86,10 @@
               <b-form-input id="guide-input" v-model="librml.usageguide" placeholder="http://slub-dresden.de/usage"
                             required></b-form-input>
             </b-form-group>
+            <b-form-checkbox v-model="librml.copyright">Urheberrechte</b-form-checkbox>
             <b-form-checkbox v-model="librml.mention">Namensnennung</b-form-checkbox>
             <b-form-checkbox v-model="librml.sharealike">Weitergabe unter gleichen Bedingungen</b-form-checkbox>
-            <b-form-checkbox v-model="librml.copyright">Urheberrechte</b-form-checkbox>
+            <b-form-checkbox v-model="librml.onlynoncommercialuse">Kommerzielle Nutzung ausgeschlossen</b-form-checkbox>
           </b-form>
           <ActionComponent v-for="(action, index) in librml.actions" :key="index" :action="action"
                            :index="index"></ActionComponent>

@@ -2,9 +2,10 @@ class LibRML extends Object {
     id = '';
     tenant = '';
     usageguide = '';
+    copyright = false;
     mention = false;
     sharealike = false;
-    copyright = false;
+    onlynoncommercialuse = false;
     actions = [];
 }
 

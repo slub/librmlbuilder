@@ -15,8 +15,6 @@
                                :rindex="rindex"></CountRestrictionComponent>
     <ConcurrentRestrictionComponent v-if="restriction.type=='concurrent'" :key="rindex" :restriction="restriction"
                                     :rindex="rindex"></ConcurrentRestrictionComponent>
-    <CommercialRestrictionComponent v-if="restriction.type=='commercialuse'" :key="rindex" :restriction="restriction"
-                                    :rindex="rindex"></CommercialRestrictionComponent>
     <AgreementRestrictionComponent v-if="restriction.type=='agreement'" :key="rindex" :restriction="restriction"
                                    :rindex="rindex"></AgreementRestrictionComponent>
     <GroupRestrictionComponent v-if="restriction.type=='group'" :key="rindex" :restriction="restriction"
@@ -38,7 +36,6 @@ import AgeRestrictionComponent from "@/components/AgeRestrictionComponent";
 import DurationRestrictionComponent from "@/components/DurationRestrictionComponent";
 import CountRestrictionComponent from "@/components/CountRestrictionComponent";
 import ConcurrentRestrictionComponent from "@/components/ConcurrentRestrictionComponent";
-import CommercialRestrictionComponent from "@/components/CommercialRestrictionComponent";
 import AgreementRestrictionComponent from "@/components/AgreementRestrictionComponent";
 import GroupRestrictionComponent from "@/components/GroupRestrictionComponent";
 import QualityRestrictionComponent from "@/components/QualityRestrictionComponent";
@@ -54,7 +51,6 @@ export default {
     DurationRestrictionComponent,
     CountRestrictionComponent,
     ConcurrentRestrictionComponent,
-    CommercialRestrictionComponent,
     AgreementRestrictionComponent,
     GroupRestrictionComponent,
     QualityRestrictionComponent,
